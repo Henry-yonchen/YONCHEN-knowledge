@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YONCHEN 外贸知识体系</title>
+<style>
+:root { --primary: #1a1a2e; --accent: #e2b04a; --accent2: #4a90d9; --bg: #f8f7f4; --card: #ffffff; --text: #2d2d2d; --text-secondary: #5a5a5a; --border: #e8e5df; --tag-bg: #f0ede6; --sidebar-w: 260px; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:var(--bg); color:var(--text); line-height:1.7; display:flex; min-height:100vh; }
+.sidebar { width:var(--sidebar-w); background:var(--primary); color:#ccc; position:fixed; top:0; left:0; bottom:0; overflow-y:auto; z-index:100; display:flex; flex-direction:column; }
+.sidebar-header { padding:24px 24px 16px; border-bottom:1px solid rgba(255,255,255,0.08); }
+.sidebar-header h1 { font-size:20px; letter-spacing:1px; color:#fff; font-weight:700; }
+.sidebar-header .sub { font-size:11px; color:var(--accent); margin-top:3px; letter-spacing:2px; }
+.sidebar-search { padding:12px 20px; }
+.sidebar-search input { width:100%; padding:9px 12px; border-radius:6px; border:none; background:rgba(255,255,255,0.08); color:#fff; font-size:12px; outline:none; }
+.sidebar-search input::placeholder { color:rgba(255,255,255,0.3); }
+.sidebar-search input:focus { background:rgba(255,255,255,0.14); }
+.sidebar-nav { flex:1; padding:4px 0; overflow-y:auto; }
+.nav-section { margin-bottom:2px; }
+.nav-section-title { padding:8px 20px; font-size:11px; letter-spacing:1px; color:rgba(255,255,255,0.28); cursor:pointer; user-select:none; display:flex; align-items:center; gap:6px; }
+.nav-section-title:hover { color:rgba(255,255,255,0.5); }
+.nav-section-title .arrow { font-size:7px; transition:transform .2s; }
+.nav-section-title.open .arrow { transform:rotate(90deg); }
+.nav-items { overflow:hidden; max-height:0; transition:max-height .3s; }
+.nav-items.show { max-height:800px; }
+.nav-item { display:block; padding:6px 20px 6px 30px; font-size:12px; color:rgba(255,255,255,0.45); cursor:pointer; text-decoration:none; transition:all .15s; border-left:2px solid transparent; }
+.nav-item:hover,.nav-item.active { color:var(--accent); background:rgba(255,255,255,0.04); border-left-color:var(--accent); }
+.sidebar-footer { padding:12px 20px; border-top:1px solid rgba(255,255,255,0.08); font-size:10px; color:rgba(255,255,255,0.18); }
+.main { margin-left:var(--sidebar-w); flex:1; padding:32px 44px; max-width:1040px; }
+.hero { margin-bottom:28px; }
+.hero h2 { font-size:26px; font-weight:700; color:var(--primary); }
+.hero p { color:var(--text-secondary); margin-top:4px; font-size:14px; }
+.module { background:var(--card); border-radius:10px; margin-bottom:24px; overflow:hidden; border:1px solid var(--border); }
+.module-header { padding:18px 24px; cursor:pointer; display:flex; align-items:center; gap:12px; user-select:none; transition:background .15s; }
+.module-header:hover { background:#fafaf8; }
+.module-icon { width:38px; height:38px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.module-icon.src { background:#e8f0fe; color:#1a73e8; }
+.module-icon.ops { background:#e6f4ea; color:#34a853; }
+.module-icon.design { background:#fce8e6; color:#ea4335; }
+.module-icon.sales { background:#fff3e0; color:#e67e22; }
+.module-icon.order { background:#e0f2f1; color:#00897b; }
+.module-icon.mgmt { background:#f3e8fd; color:#9334e6; }.module-icon.logistics { background:#e3f2fd; color:#1565c0; }.module-icon.culture { background:#fff8e1; color:#f57f17; }
+.module-info h3 { font-size:16px; font-weight:600; }
+.module-info .desc { font-size:12px; color:var(--text-secondary); margin-top:1px; }
+.module-arrow { color:#aaa; font-size:13px; transition:transform .25s; }
+.module-header.open .module-arrow { transform:rotate(90deg); }
+.module-body { display:none; padding:0 24px 20px; }
+.module-body.show { display:block; }
+.topic { border:1px solid var(--border); border-radius:7px; margin-bottom:12px; overflow:hidden; }
+.topic-header { padding:12px 18px; cursor:pointer; display:flex; align-items:center; gap:8px; background:#fafaf9; user-select:none; transition:background .15s; }
+.topic-header:hover { background:#f3f1ec; }
+.topic-num { width:22px; height:22px; border-radius:5px; font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; background:var(--tag-bg); color:var(--text-secondary); }
+.topic-header h4 { font-size:13px; font-weight:600; flex:1; }
+.topic-tag { font-size:10px; padding:2px 7px; border-radius:4px; background:var(--tag-bg); color:var(--text-secondary); }
+.topic-arrow { color:#aaa; font-size:11px; transition:transform .25s; }
+.topic-header.open .topic-arrow { transform:rotate(90deg); }
+.topic-body { display:none; padding:0 18px 16px; }
+.topic-body.show { display:block; }
+.topic-body p,.topic-body li { font-size:13px; color:var(--text-secondary); margin-bottom:7px; }
+.topic-body ul,.topic-body ol { padding-left:18px; margin:6px 0; }
+.topic-body strong { color:var(--text); }
+.doc-ref { display:inline-block; padding:2px 8px; margin:2px 4px 2px 0; background:#f0ede6; border-radius:4px; font-size:11px; color:#8a7e6b; cursor:default; }
+.doc-ref:hover { background:#e6e0d5; }
+.highlight-box { background:#fffdf5; border-left:3px solid var(--accent); padding:10px 14px; border-radius:0 6px 6px 0; margin:10px 0; font-size:12px; }
+.highlight-box strong { color:#b8860b; }
+.tip-box { background:#f0f7ff; border-left:3px solid #1a73e8; padding:10px 14px; border-radius:0 6px 6px 0; margin:10px 0; font-size:12px; }
+.tip-box strong { color:#1a73e8; }
+.info-table { width:100%; border-collapse:collapse; margin:10px 0; font-size:12px; }
+.info-table th,.info-table td { padding:8px 12px; text-align:left; border:1px solid var(--border); }
+.info-table th { background:#fafaf9; font-weight:600; font-size:11px; color:var(--text-secondary); }
+.info-table td { color:var(--text-secondary); }
+mark { background:#fff3b0; padding:0 2px; border-radius:2px; }
+.hidden-by-search { display:none!important; }
+@media(max-width:768px) {
+.sidebar { transform:translateX(-100%); transition:transform .25s; }
+.sidebar.mobile-open { transform:translateX(0); }
+.main { margin-left:0; padding:16px 14px; }
+.mobile-menu-btn { position:fixed; top:14px; right:14px; z-index:200; width:38px; height:38px; border-radius:8px; background:var(--primary); color:#fff; border:none; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; }
+}
+@media(min-width:769px) { .mobile-menu-btn { display:none; } }
+.footer { text-align:center; padding:16px 0 32px; color:#c0c0c0; font-size:11px; }
+</style>
+</head>
+<body>
+<button class="mobile-menu-btn" onclick="document.querySelector('.sidebar').classList.toggle('mobile-open')">☰</button>
+<aside class="sidebar">
+<div class="sidebar-header"><h1>YONCHEN</h1><div class="sub">外贸知识体系</div></div>
+<div class="sidebar-search"><input type="text" placeholder="搜索全部知识…" id="searchInput" oninput="searchContent()"></div>
+<nav class="sidebar-nav">
+
+<div class="nav-section"><div class="nav-section-title" onclick="toggleNavSection(this)"><span class="arrow">▶</span> 采购板块</div><div class="nav-items">
+  <a class="nav-item active" onclick="scrollToModule('src')">供应商开发与采购</a>
+</div></div>
+
+<div class="nav-section"><div class="nav-section-title" onclick="toggleNavSection(this)"><span class="arrow">▶</span> 运营板块</div><div class="nav-items">
+  <a class="nav-item" onclick="scrollToModule('ops')">阿里国际站运营</a>
+</div></div>
+
+<div class="nav-section"><div class="nav-section-title" onclick="toggleNavSection(this)"><span class="arrow">▶</span> 美工板块</div><div class="nav-items">
+  <a class="nav-item" onclick="scrollToModule('design')">视觉设计与AI</a>
+</div></div>
+
+<div class="nav-section"><div class="nav-section-title" onclick="toggleNavSection(this)"><span class="arrow">▶</span> 销售板块</div><div class="nav-items">
+  <a class="nav-item" onclick="scrollToModule('sales')">社媒获客与转化</a>
+</div></div>
+
+<div class="nav-section"><div class="nav-section-title" onclick="toggleNavSection(this)"><span class="arrow">▶</span> 跟单板块</div><div class="nav-items">
+  <a class="nav-item" onclick="scrollToModule('order')">订单与单证管理</a>
+</div></div>
+
+<div class="nav-section"><div class="nav-section-title" onclick="toggleNavSection(this)"><span class="arrow">▶</span> 物流与单证</div><div class="nav-items">
+  <a class="nav-item" onclick="scrollToModule('logistics')">物流报关与单证</a>
+</div></div>
+
+<div class="nav-section"><div class="nav-section-title" onclick="toggleNavSection(this)"><span class="arrow">▶</span> 管理板块</div><div class="nav-items">
+  <a class="nav-item" onclick="scrollToModule('mgmt')">团队与战略管理</a>
+</div></div>
+
+<div class="nav-section"><div class="nav-section-title" onclick="toggleNavSection(this)"><span class="arrow">▶</span> 客户文化</div><div class="nav-items">
+  <a class="nav-item" onclick="scrollToModule('culture')">各国客户交流指南</a>
+</div></div>
+
+</nav>
+<div class="sidebar-footer">YONCHEN © 2026</div>
+</aside>
+<main class="main">
+<div class="hero"><h2>📚 YONCHEN 外贸知识体系</h2><p>大学生创业团队 · 完整业务知识库 · 从这里开始，一起成长</p></div>
+<!-- ====== 采购板块 ====== -->
+<div class="module" id="src"><div class="module-header open" onclick="toggleModule(this)"><div class="module-icon src">📦</div><div class="module-info"><h3>采购板块 · 供应商开发与采购管理</h3><div class="desc">找到好工厂、拿到好价格、管好供应链——外贸的根基</div></div><span class="module-arrow">▶</span></div>
+<div class="module-body show">
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">01</span><h4>老商家拓品 —— 从现有供应商扩展产品线</h4><span class="topic-tag">拓品</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>拓品（扩展产品线）最高效的方式不是找新工厂，而是<strong>从已有合作的老供应商入手</strong>。你们已经建立了信任，沟通成本最低。</p>
+<p><strong>老商家拓品四步法：</strong></p>
+<ol>
+<li><strong>梳理现有工厂的产品线：</strong>每个工厂除了你目前在买的产品，还生产什么？拿到完整的工厂产品目录</li>
+<li><strong>分析市场数据：</strong>在阿里国际站/Amazon看该品类哪些产品卖得好、询盘量大，优先拓有需求的产品</li>
+<li><strong>小批量测款：</strong>先拿样品或在老订单中附带少量新品，测试客户反馈</li>
+<li><strong>数据验证后放大：</strong>有正反馈的产品追加订单，上架到国际站</li>
+</ol>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《拓品计划》</span>
+<span class="doc-ref">《知识库》</span>
+</p>
+<div class="tip-box"><strong>💡 关键思维：</strong>不要漫无目的地拓品——<strong>先看市场需求，再找供应</strong>。而不是"工厂有什么我就上什么"。市场要什么，你去找什么。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">02</span><h4>产品差异分析 —— 你的产品和别人的有什么不同</h4><span class="topic-tag">对比</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>买家为什么选你而不选别人？你必须能<strong>清晰说出你的产品差异</strong>。</p>
+<p><strong>产品差异化的五个维度：</strong></p>
+<ul>
+<li><strong>材质/工艺：</strong>用的什么材料？什么工艺？和同行比好在哪里？</li>
+<li><strong>价格/起订量：</strong>同品质下价格更低？或MOQ更灵活？</li>
+<li><strong>定制能力：</strong>能不能做Logo定制？包装定制？颜色定制？</li>
+<li><strong>交期/库存：</strong>交货更快？有现货？</li>
+<li><strong>服务/信任：</strong>响应速度、专业度、售后保障</li>
+</ul>
+<p><strong>怎么做竞品对比？</strong></p>
+<ol>
+<li>在阿里国际站搜索你的核心产品关键词</li>
+<li>找出Top10的同行的产品</li>
+<li>从材质、价格区间、MOQ、主图质量、详情页完整度逐一对比</li>
+<li>做一张对比表格，找到你的优势和差距</li>
+</ol>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《细节对比图》</span>
+<span class="doc-ref">《导购图》</span>
+</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">03</span><h4>工厂开发 —— 哪些工厂造你的产品</h4><span class="topic-tag">找工厂</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>找到对口的工厂是采购的第一步。不同产品对应不同的产业集群。</p>
+<p><strong>找工厂的五大渠道：</strong></p>
+<ol>
+<li><strong>1688.com：</strong>国内最大的B2B平台，搜索你的产品+看工厂资质（经营年限、注册资本、诚信通年份）</li>
+<li><strong>阿里国际站反向找：</strong>搜索你的产品 → 看Top供应商的公司信息 → 找到他们的1688店铺或官网</li>
+<li><strong>行业展会：</strong>广交会、行业专业展——直接看实物、拿名片、加微信</li>
+<li><strong>产业带实地跑：</strong>去产业集群地（如义乌小商品、永康五金、澄海玩具、南通家纺等）实地拜访</li>
+<li><strong>同行推荐/行业群：</strong>外贸群、行业论坛里问"XX产品哪家工厂好"</li>
+</ol>
+<p><strong>筛选工厂的关键指标：</strong></p>
+<table class="info-table">
+<tr><th>指标</th><th>怎么看</th><th>红线</th></tr>
+<tr><td>经营年限</td><td>1688/企查查看注册时间</td><td><3年的谨慎合作</td></tr>
+<tr><td>是否真工厂</td><td>看营业执照经营范围是否有"生产/制造"</td><td>纯贸易商冒充工厂</td></tr>
+<tr><td>产能规模</td><td>问月产能、工人数量、机器数量</td><td>产能不符你的订单量</td></tr>
+<tr><td>配合度</td><td>样品响应速度、沟通态度</td><td>爱答不理、报价随意的</td></tr>
+</table>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《工厂管理》</span>
+<span class="doc-ref">《验厂SOP》</span>
+</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">04</span><h4>问工厂什么问题 —— 供应商沟通SOP</h4><span class="topic-tag">话术</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>第一次联系工厂，不要上来就问"这个多少钱"。<strong>先建立专业形象，再谈价格</strong>。</p>
+<p><strong>首次联系工厂的必问清单（10个问题）：</strong></p>
+<ol>
+<li>"请问你们是工厂还是贸易公司？"（判断是否源头）</li>
+<li>"这个产品你们的月产能是多少？"（产能能否匹配）</li>
+<li>"最小起订量（MOQ）是多少？"（匹配客户需求）</li>
+<li>"样品费怎么收？大货是否返还？打样周期多久？"（测试配合度）</li>
+<li>"你们的常规交期是多少天？"（评估交期能力）</li>
+<li>"产品通过了哪些认证？（CE/FDA/ISO等）"（合规性）</li>
+<li>"能发一些你们正在出口的同类产品照片和包装图片吗？"（验证经验和质量）</li>
+<li>"你们和哪些品牌/客户合作过？（可以不说名字，说行业即可）"（验证实力，注意分寸）</li>
+<li>"价格是FOB还是EXW？含税吗？"（明确报价条款）</li>
+<li>"付款方式是什么？（30%定金+70%发货前？）"（明确付款条件）</li>
+</ol>
+<div class="highlight-box"><strong>⚠️ 重要：</strong>不要一次性把所有问题甩过去。分2-3轮提问，增加互动频率，观察对方回复速度和质量。回复慢、回答模糊的工厂——减分。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">05</span><h4>价格表管理 —— 拿到工厂报价后怎么做</h4><span class="topic-tag">价格</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>工厂给你的是<strong>出厂价</strong>，你给客户的是<strong>销售价</strong>。中间需要加上你的利润、运费、平台费用等。</p>
+<p><strong>价格表管理四步：</strong></p>
+<ol>
+<li><strong>拿到至少3家工厂的报价：</strong>同一产品至少比较3家，了解市场底价</li>
+<li><strong>统一报价格式：</strong>要求工厂用FOB报价（含到港口的运费），方便横向对比</li>
+<li><strong>制作YONCHEN内部价格表：</strong>工厂价 → 加运费预估 → 加平台佣金 → 加利润 → 得到对外报价</li>
+<li><strong>定期更新：</strong>原材料价格波动时（如铜、钢、塑料涨价），主动找工厂更新报价</li>
+</ol>
+<p><strong>价格表模板要点：</strong></p>
+<ul>
+<li>产品名称/型号/规格</li>
+<li>工厂名 + 工厂报价（FOB）</li>
+<li>MOQ + 阶梯价（100pcs→500pcs→1000pcs的不同价格）</li>
+<li>对外销售价（FOB）</li>
+<li>利润率</li>
+<li>更新时间</li>
+</ul>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《价格表》</span>
+</p>
+<div class="tip-box"><strong>💰 定价原则：</strong>利润 = 工厂价的15%-30%（根据品类竞争程度调整）。不要报太低——留给客户砍价空间，也留给自己利润空间。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">06</span><h4>给客户展示细节 —— 如何呈现产品价值</h4><span class="topic-tag">展示</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>客户看不到实物，只能通过你给的图片和描述来判断你的产品。展示细节的质量直接决定成交。</p>
+<p><strong>产品展示的六个必备要素：</strong></p>
+<ol>
+<li><strong>多角度高清图：</strong>正面、侧面、背面、细节特写、使用场景</li>
+<li><strong>尺寸对比：</strong>放一个参照物（硬币、手掌、尺子），让客户直观感受大小</li>
+<li><strong>材质特写：</strong>放大拍摄材质纹理，让客户"看清"品质</li>
+<li><strong>包装展示：</strong>展示产品包装方式，客户在意运输安全</li>
+<li><strong>对比图：</strong>你的产品 vs 普通产品的对比（突出你的优势）</li>
+<li><strong>视频：</strong>10-15秒的产品展示视频 > 10张图片</li>
+</ol>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《细节对比图》</span>
+<span class="doc-ref">《导购图》</span>
+</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">07</span><h4>我们都卖什么产品 —— YONCHEN产品线管理</h4><span class="topic-tag">产品线</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>YONCHEN产品线管理的三个原则：</strong></p>
+<ul>
+<li><strong>聚焦：</strong>初期不超过2-3个品类，把一个品类做透再扩展</li>
+<li><strong>分级：</strong>引流款（低价拉流量）+ 利润款（主力赚钱）+ 形象款（展示实力）</li>
+<li><strong>淘汰：</strong>3个月没有询盘的产品果断下架，集中精力在有效果的产品上</li>
+</ul>
+<p><strong>产品信息管理的核心字段：</strong></p>
+<ul>
+<li>产品名称（中英文）、型号/SKU、产品图片、规格参数</li>
+<li>对应供应商（哪家工厂供货）、工厂价格、MOQ</li>
+<li>销售价格、目标市场、上架平台</li>
+<li>销量/询盘数据（用于评估产品表现，决定加大投入还是淘汰）</li>
+</ul>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《知识库》</span>
+<span class="doc-ref">《价格表》</span>
+</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">08</span><h4>物流货代管理</h4><span class="topic-tag">物流</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>物流是外贸的"最后一公里"。货做好了但发不出去，或运费太贵吃掉利润，是新人最容易踩的坑。</p>
+<p><strong>怎么找靠谱货代？</strong></p>
+<ul>
+<li>外贸群/同行推荐（最靠谱）</li>
+<li>货代平台比价（如运去哪、Flexport等）</li>
+<li>阿里国际站后台物流服务</li>
+<li>广交会等展会上的货代展商</li>
+</ul>
+<p><strong>问货代的必问清单：</strong></p>
+<ol>
+<li>"XX产品从XX港到XX港的海运/空运/快递价格是多少？"</li>
+<li>"时效是多少天？近期有没有船期延误？"</li>
+<li>"有没有隐藏费用？（报关费、拖车费、仓储费、目的港费用等）"</li>
+<li>"能不能做DDP（完税交货）？"</li>
+<li>"你们的优势线路是哪些国家？"</li>
+<li>"如果货物损坏或丢失，怎么赔付？"</li>
+<li>"能不能先走一票小货试试你们的服务？"</li>
+</ol>
+<p><strong>运输方式对比：</strong></p>
+<table class="info-table">
+<tr><th>方式</th><th>时效</th><th>成本</th><th>适合场景</th></tr>
+<tr><td>国际快递(DHL/UPS/FedEx)</td><td>3-7天</td><td>高</td><td>样品、小包裹</td></tr>
+<tr><td>空运</td><td>7-15天</td><td>中高</td><td>中等货量、急单</td></tr>
+<tr><td>海运拼箱(LCL)</td><td>25-40天</td><td>中低</td><td>货量1-10CBM</td></tr>
+<tr><td>海运整柜(FCL)</td><td>25-40天</td><td>低（单件）</td><td>货量>15CBM</td></tr>
+<tr><td>铁路</td><td>15-25天</td><td>中</td><td>欧洲方向</td></tr>
+</table>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《物流管理》</span>
+<span class="doc-ref">《货代管理》</span>
+<span class="doc-ref">《找货代话术》</span>
+</p>
+<div class="highlight-box"><strong>⚠️ 避坑：</strong>不同货代同一个港口的价格可能差30%以上。至少问3家货代比价。而且，便宜的货代不一定好——时效、服务、出了问题怎么处理，比价格更重要。</div>
+</div></div>
+
+</div></div>
+<!-- ====== 运营板块 ====== -->
+<div class="module" id="ops"><div class="module-header" onclick="toggleModule(this)"><div class="module-icon ops">📊</div><div class="module-info"><h3>运营板块 · 阿里巴巴国际站</h3><div class="desc">平台是客户来源的核心引擎。运营做得好，询盘用不完</div></div><span class="module-arrow">▶</span></div>
+<div class="module-body">
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">01</span><h4>生意怎么样 —— 店铺数据看板</h4><span class="topic-tag">数据</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>运营不是凭感觉做事，而是<strong>看数据做决策</strong>。每天打开后台第一件事就是看数据。</p>
+<p><strong>每日必看核心指标（5分钟快速扫描）：</strong></p>
+<ul>
+<li><strong>曝光量：</strong>今天 vs 昨天，涨了还是跌了？跌了就查原因</li>
+<li><strong>点击量/点击率：</strong>点击率<1%说明主图或标题要优化</li>
+<li><strong>询盘量：</strong>今天来了几个询盘？来自哪些产品？</li>
+<li><strong>TM咨询量：</strong>在线聊天来的客户量</li>
+<li><strong>RFQ剩余额度：</strong>还有多少条RFQ可以用</li>
+</ul>
+<p><strong>每周必看趋势数据：</strong></p>
+<ul>
+<li>周环比（本周 vs 上周的曝光/点击/询盘变化）</li>
+<li>哪些产品贡献了最多的曝光和询盘（重点保护）</li>
+<li>哪些产品0曝光（考虑下架或重新发布）</li>
+<li>P4P花费和产出（花了多少钱，带来几个询盘）</li>
+</ul>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《数据看板》</span>
+</p>
+<div class="tip-box"><strong>📊 养成习惯：</strong>每天早上花5分钟看数据，5分钟处理RFQ，这是运营的基本功。坚持一个月，你会对数据有"感觉"——一眼就能看出今天数据正不正常。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">02</span><h4>店铺有什么问题 —— 诊断SOP</h4><span class="topic-tag">诊断</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>当数据出现异常时，按这个SOP逐层排查：</p>
+<p><strong>诊断漏斗（从上往下排查）：</strong></p>
+<ol>
+<li><strong>曝光骤降？</strong>→ 查关键词排名是否掉了、产品是否被降权、是否被同行超越</li>
+<li><strong>曝光正常但点击少？</strong>→ 优化主图吸引力、标题是否匹配买家搜索意图</li>
+<li><strong>点击正常但询盘少？</strong>→ 查详情页质量、价格是否有竞争力、MOQ是否太高</li>
+<li><strong>询盘多但成交少？</strong>→ 查回复速度、报价专业度、跟进是否到位</li>
+</ol>
+<p><strong>常见的店铺问题及解法：</strong></p>
+<table class="info-table">
+<tr><th>问题</th><th>可能原因</th><th>解法</th></tr>
+<tr><td>曝光持续下降</td><td>店铺权重降低/产品过时</td><td>发布新品、优化老品、提高回复率</td></tr>
+<tr><td>点击率<0.5%</td><td>主图不够吸引</td><td>换主图（白底+场景图测试）</td></tr>
+<tr><td>有曝光无询盘</td><td>详情页信息不足</td><td>补充参数表、工厂图、证书、FAQ</td></tr>
+<tr><td>询盘质量差</td><td>关键词不精准</td><td>检查关键词匹配度，换精准长尾词</td></tr>
+</table>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《店铺诊断》</span>
+</p>
+</div></div>
+
+<div class="topic"><div class="topic-header open" onclick="toggleTopic(this)"><span class="topic-num">03</span><h4>RFQ（Request for Quotation）详解</h4><span class="topic-tag">重点</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body show">
+<p><strong>RFQ是什么？</strong> RFQ 是阿里巴巴国际站的"采购需求报价"系统。买家公开发布采购需求，卖家主动报价获取联系机会。</p>
+<p><strong>为什么RFQ对新店铺至关重要？</strong></p>
+<ul>
+<li>买家主动发布需求，采购意向<strong>真实且紧急</strong></li>
+<li>不需要等买家搜到你——你主动去找买家</li>
+<li>新手期没有自然询盘时，RFQ是<strong>最稳定的客户来源</strong></li>
+</ul>
+<p><strong>RFQ额度与入口：</strong></p>
+<ul>
+<li>出口通：约20条/月；金品诚企：约45条/月</li>
+<li>入口：My Alibaba后台 → 商机沟通 → RFQ市场；或AliSupplier APP → 商机 → RFQ</li>
+</ul>
+<p><strong>RFQ操作五步法：</strong></p>
+<ol>
+<li><strong>设置订阅关键词：</strong>RFQ市场 → 设置订阅 → 添加产品关键词，系统自动推送匹配RFQ</li>
+<li><strong>筛选优质RFQ：</strong>买家已认证、需求描述详细、有明确数量和目标价、发布时间<24小时</li>
+<li><strong>1小时内报价：</strong>黄金窗口期，越早报价排名越靠前</li>
+<li><strong>个性化报价内容：</strong>称呼买家、逐条回应需求、附产品链接和图片、给价格区间、留WhatsApp</li>
+<li><strong>24小时内跟进：</strong>未回复则通过TM或邮件再次联系</li>
+</ol>
+<div class="tip-box"><strong>🔑 RFQ黄金模板：</strong><br>"Hi [Name], thanks for your RFQ! I notice you are looking for [product]. We are a professional [category] manufacturer with [X] years experience. We can offer [spec] at FOB [price range]. MOQ: [qty]. Product link: [link]. WhatsApp: [+86 xxx]. Looking forward to working with you!"</div>
+<div class="highlight-box"><strong>⚠️ 不要复制粘贴：</strong>每条RFQ报价至少要有2-3处针对该买家需求的个性化内容。买家一眼就能看出模板回复。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">04</span><h4>产品发布与关键词优化</h4><span class="topic-tag">核心</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>产品发布是运营的地基。标题、关键词、属性直接决定搜索排名。</p>
+<p><strong>标题公式：</strong>核心关键词 + 属性词 + 应用场景 + 卖点词</p>
+<p><strong>关键词收集五渠道：</strong>数据管家关键词指数 → 阿里搜索下拉框 → 同行Top10标题分析 → Google Keyword Planner → P4P关键词工具</p>
+<p><strong>三栏关键词策略：</strong>第一个精准核心词 / 第二个长尾词 / 第三个场景词</p>
+<p><strong>产品属性：</strong>10个自定义属性全部填满，每个都是搜索入口。</p>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《上架产品》</span>
+<span class="doc-ref">《优化产品》</span>
+</p>
+<div class="tip-box"><strong>📌 发布频率：</strong>每周至少3-5个新品，分批次发布，保持店铺活跃度。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">05</span><h4>P4P直通车广告</h4><span class="topic-tag">付费</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>P4P（按点击付费广告）</strong>让你的产品出现在搜索结果前5位。</p>
+<p><strong>操作流程：</strong>建计划 → 选品（优先数据好的产品） → 选词（优先精准长尾词，别抢大词） → 出价（从低到高测试） → 设日预算（新手¥100-200/天起步）</p>
+<p><strong>核心指标：</strong>CTR>1%、平均点击成本<行业可接受范围、ROI正向</p>
+<div class="highlight-box"><strong>⚠️ 新手避坑：</strong>别抢行业大词（如"water bottle"），竞争激烈浪费钱。先用长尾精准词积累权重。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">06</span><h4>找图片 —— 图片管理</h4><span class="topic-tag">图片</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>图片是外贸的"第一语言"。买家先看图，再看字。</p>
+<p><strong>图片从哪里来？</strong></p>
+<ul>
+<li>工厂提供（但通常不够好，需要二次处理）</li>
+<li>自己拍摄（手机+简易摄影棚，成本很低）</li>
+<li>AI生成（Accio生成白底图/场景图）</li>
+<li>Canva等工具二次加工（加文字、排版）</li>
+</ul>
+<p><strong>图片命名与分类规范：</strong></p>
+<ul>
+<li>产品编号_角度_版本.jpg（如：YB001_front_v2.jpg）</li>
+<li>按产品分类建立文件夹</li>
+<li>保留原始高清图+已处理图两个版本</li>
+</ul>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《图片管理》</span>
+<span class="doc-ref">《主图》</span>
+<span class="doc-ref">《详情页》</span>
+</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">07</span><h4>商家星等级与店铺装修</h4><span class="topic-tag">权重</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>星等级（0-5星）直接影响<strong>搜索排名、活动资格、金融额度</strong>。四大维度：信息展示(20%)、商机转化(30%)、交易履约(30%)、买家保障(20%)。</p>
+<p><strong>快速提星：</strong>询盘1小时回复 → TM在线8小时 → 走信保订单 → 定期发新品 → 上传企业证书/工厂照片</p>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《装修》</span>
+</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">08</span><h4>订单与好评管理</h4><span class="topic-tag">评价</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>好评是国际站最有说服力的信任背书。每个成交的客户，都要争取好评。</p>
+<p><strong>要好评的时机和话术：</strong></p>
+<ul>
+<li>货物签收后3-5天（客户收到货心情最好的时候）</li>
+<li>话术："Hi [Name], hope you received the goods in good condition! If you are satisfied, would you mind leaving a review on Alibaba? It means a lot to a small business like us. Thank you!"</li>
+</ul>
+<p><strong>差评处理：</strong>第一时间联系客户了解问题 → 给出补偿方案（补发/退款/折扣） → 客户满意后再请求修改评价</p>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《订单截图》</span>
+<span class="doc-ref">《好评截图》</span>
+</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">09</span><h4>优爆品打造</h4><span class="topic-tag">爆品</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>优爆品是阿里国际站对表现优异产品的标签，获得后搜索权重和曝光大幅提升。</p>
+<p><strong>优爆品标准（平台判定）：</strong></p>
+<ul>
+<li>产品信息完整（主图白底、视频、详情页丰富）</li>
+<li>有成交记录（信保订单）</li>
+<li>点击率和转化率高于行业平均</li>
+<li>有买家评价</li>
+</ul>
+<p><strong>打造优爆品策略：</strong>选一个最有潜力的产品 → 集中所有资源打爆（P4P预算倾斜、最佳主图、最完整详情页） → 引导客户走信保 → 积累订单和好评 → 冲爆品标签</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">10</span><h4>有没有侵权 —— 知识产权风险排查</h4><span class="topic-tag">合规</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>侵权是外贸的致命雷区。轻则产品下架扣分，重则封店甚至被起诉。</p>
+<p><strong>常见的三种侵权类型：</strong></p>
+<ul>
+<li><strong>商标侵权：</strong>使用了别人的品牌名、Logo（如卖"Nike"同款）</li>
+<li><strong>专利侵权：</strong>产品外观/功能侵犯了别人的专利权</li>
+<li><strong>图片侵权：</strong>盗用了别人的产品图片</li>
+</ul>
+<p><strong>如何自查侵权风险：</strong></p>
+<ol>
+<li>阿里后台 → 知识产权保护 → 查看违规记录</li>
+<li>检查产品标题和描述中是否含有大牌名称</li>
+<li>产品图片是否全部为自己拍摄或有权使用</li>
+<li>产品外观是否模仿了知名品牌的设计</li>
+<li>用Google图片搜索检查你的产品是否和别人高度相似</li>
+</ol>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《侵权检测》</span>
+</p>
+<div class="highlight-box"><strong>⚠️ 红线：</strong>绝对不要卖仿牌、高仿。一单投诉可能毁掉整个店铺。大学生创业团队输不起。</div>
+</div></div>
+
+</div></div>
+<!-- ====== 美工板块 ====== -->
+<div class="module" id="design"><div class="module-header" onclick="toggleModule(this)"><div class="module-icon design">🎨</div><div class="module-info"><h3>美工板块 · 视觉设计与AI工具</h3><div class="desc">好产品需要好视觉。善用AI，一个人就是一支设计团队</div></div><span class="module-arrow">▶</span></div>
+<div class="module-body">
+
+<div class="topic"><div class="topic-header open" onclick="toggleTopic(this)"><span class="topic-num">01</span><h4>AI设计工具矩阵</h4><span class="topic-tag">AI工具</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body show">
+<p><strong>阿里系AI：</strong></p>
+<ul>
+<li><strong>Accio（accio.alibaba.com）：</strong>阿里官方AI商品图工具——上传产品照片自动生成白底图、场景图、模特图</li>
+<li><strong>阿里AI文案：</strong>My Alibaba后台集成，自动生成英文产品标题和描述</li>
+</ul>
+<p><strong>通用设计AI：</strong></p>
+<ul>
+<li><strong>Canva（可画）：</strong>海量营销模板，做Banner/海报/目录册，免费版够用，Pro约¥100/月，支持AI生图和去背景</li>
+<li><strong>Midjourney：</strong>最强AI生图，适合创意场景图、品牌视觉，约$10/月起</li>
+<li><strong>DALL·E 3：</strong>ChatGPT内置，生成产品场景图，中文友好</li>
+<li><strong>Remove.bg：</strong>一键抠图，免费</li>
+<li><strong>Upscayl：</strong>AI图片放大增强，免费开源</li>
+</ul>
+<p><strong>视频AI：</strong></p>
+<ul>
+<li><strong>CapCut（剪映国际版）：</strong>免费剪辑+AI字幕+AI配音，做产品视频首选</li>
+<li><strong>HeyGen：</strong>AI数字人视频，虚拟主播英文讲解产品</li>
+<li><strong>Fliki：</strong>文字转视频，输入文案自动生成</li>
+</ul>
+<div class="tip-box"><strong>🔑 推荐学习路线：</strong>Canva（上手最快）→ Accio（白底图神器）→ CapCut（视频必备）→ Midjourney（进阶创意）。前三个全部免费。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">02</span><h4>主图设计规范</h4><span class="topic-tag">规范</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>主图是买家第一眼看到的东西，直接决定点击率。</p>
+<ul>
+<li><strong>尺寸：</strong>1000×1000px（1:1），至少750×750px</li>
+<li><strong>第一张：</strong>纯白底产品图，不加文字</li>
+<li><strong>第2-6张：</strong>场景图、卖点标注、尺寸对比、包装展示、细节特写</li>
+<li><strong>产品占比：</strong>70%-80%，光线均匀，清晰锐利</li>
+</ul>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《主图》</span>
+</p>
+<div class="highlight-box"><strong>⚡ AI加速：</strong>Accio一键白底图+场景图 → Canva加文字卖点 → 10分钟一套主图。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">03</span><h4>详情页设计</h4><span class="topic-tag">转化</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>详情页决定"浏览→询盘"的转化率。结构：产品主图 → 参数表 → 细节展示 → 定制能力 → 工厂实力 → 包装物流 → FAQ → Call to Action。</p>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《详情页》</span>
+<span class="doc-ref">《装修》</span>
+</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">04</span><h4>产品视频制作</h4><span class="topic-tag">视频</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>有视频的产品排名权重更高。手机拍摄+CapCut剪辑+AI字幕，出片快且专业。</p>
+<ul>
+<li>主图视频30-60秒 / 工厂视频展示产线 / 开箱视频 / 对比测试视频</li>
+<li>用HeyGen做AI数字人讲解产品，放在详情页效果极佳</li>
+</ul>
+</div></div>
+
+</div></div>
+<!-- ====== 销售板块 ====== -->
+<div class="module" id="sales"><div class="module-header" onclick="toggleModule(this)"><div class="module-icon sales">💰</div><div class="module-info"><h3>销售板块 · 社媒获客与客户转化</h3><div class="desc">不坐等询盘，主动出击。打造YONCHEN社媒外贸IP</div></div><span class="module-arrow">▶</span></div>
+<div class="module-body">
+
+<div class="topic"><div class="topic-header open" onclick="toggleTopic(this)"><span class="topic-num">01</span><h4>社媒找客户 —— 我们的核心战略</h4><span class="topic-tag">重点</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body show">
+<p><strong>为什么社媒是YONCHEN的核心获客渠道？</strong></p>
+<ul>
+<li>阿里国际站被动等询盘不够——我们需要主动出击</li>
+<li>社媒是<strong>免费流量</strong>，一条爆款视频带来几百个询盘，成本为零</li>
+<li>大学生团队<strong>更懂社媒、更懂内容</strong>，这是相比传统外贸工厂的天然优势</li>
+<li>打造IP后客户主动找你——从"你找客户"变成"客户找你"</li>
+</ul>
+<p><strong>YONCHEN五平台社媒矩阵：</strong></p>
+<table class="info-table">
+<tr><th>平台</th><th>定位</th><th>内容形式</th></tr>
+<tr><td><strong>LinkedIn</strong></td><td>专业B2B形象</td><td>行业洞察、工厂展示、客户案例</td></tr>
+<tr><td><strong>TikTok</strong></td><td>品牌曝光+引流</td><td>产品展示、工厂揭秘、行业知识</td></tr>
+<tr><td><strong>Instagram</strong></td><td>品牌视觉+信任</td><td>产品美图、客户反馈、团队日常</td></tr>
+<tr><td><strong>YouTube</strong></td><td>深度内容</td><td>产品评测、工厂tour、行业趋势</td></tr>
+<tr><td><strong>Facebook</strong></td><td>社群+客户关系</td><td>行业群组互动、客户推荐</td></tr>
+</table>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《找客户》</span>
+<span class="doc-ref">《开发信》</span>
+</p>
+<div class="highlight-box"><strong>🎯 核心思维：</strong>不是去社媒上"推销"，而是去"建立信任"。让潜在客户因你的内容信任你、记住你、选择你。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">02</span><h4>打造YONCHEN社媒外贸IP</h4><span class="topic-tag">IP打造</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>外贸IP = 值得信赖的行业专家形象。</strong></p>
+<p><strong>YONCHEN IP人设方向（可组合）：</strong></p>
+<ul>
+<li><strong>"专业外贸服务商"</strong>——不只是卖产品，而是提供省心的一站式采购体验：选品建议+品质把控+物流方案+售后保障</li>
+<li><strong>"中国源头工厂直供"</strong>——价格优势、品质保证</li>
+<li><strong>"XX行业专家"</strong>——深扎一个行业，成为该领域的KOL</li>
+</ul>
+<p><strong>五类必发内容（按比例）：</strong></p>
+<ul>
+<li>产品展示（40%）/ 工厂团队展示（20%）/ 客户证言（15%）/ 行业知识（15%）/ 个人故事（10%）</li>
+</ul>
+<p><strong>爆款公式：</strong>Hook（前3秒抓眼球）+ Value（提供价值）+ CTA（引导行动）</p>
+<div class="tip-box"><strong>🎬 示例：</strong>开头展示产品震撼画面 → 中间讲卖点和生产过程 → 结尾"DM me for best price / WhatsApp: xxx"</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">03</span><h4>LinkedIn深度运营</h4><span class="topic-tag">LinkedIn</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>LinkedIn是B2B外贸获客的<strong>黄金渠道</strong>，90%海外采购决策者在上面活跃。</p>
+<p><strong>Profile优化：</strong>专业头像 → Banner放工厂照片 → Headline写"帮客户解决什么问题" → About讲故事</p>
+<p><strong>找客户三法：</strong>搜索+筛选目标客户职位 → 加入行业群组先贡献价值 → 分析同行评论区找潜在客户</p>
+<p><strong>Connection话术：</strong>"Hi [Name], noticed you are in [industry]. We are a professional [product] manufacturer from China. I would love to connect and explore collaboration."</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">04</span><h4>TikTok外贸获客</h4><span class="topic-tag">TikTok</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>TikTok是当前<strong>流量红利最大</strong>的社媒平台。一条视频可能带来百万曝光和几百个询盘。</p>
+<p><strong>已验证有效的内容类型：</strong>产品生产过程、工厂揭秘/Factory Tour、产品测试对比、打包发货实拍、创始人出镜</p>
+<p><strong>运营要点：</strong>企业账号 → Bio放WhatsApp链接 → Hashtag(大词+行业词+品牌词) → 目标市场当地晚7-10点发布 → 每条评论必回复</p>
+<div class="tip-box"><strong>📱 设备：</strong>一台iPhone + 三脚架 + 补光灯即可。关键是内容创意，不是设备档次。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">05</span><h4>都有哪些客户 —— 客户类型与背调</h4><span class="topic-tag">客户</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>不是所有客户都值得投入同样的精力。先判断客户类型，再决定如何跟进。</p>
+<p><strong>外贸客户四大类型：</strong></p>
+<table class="info-table">
+<tr><th>类型</th><th>特征</th><th>策略</th></tr>
+<tr><td><strong>品牌商</strong></td><td>有自己品牌，需要OEM/ODM，量大稳定</td><td>重点跟进，展示定制能力和品质管控</td></tr>
+<tr><td><strong>批发商/经销商</strong></td><td>买货再分销，追求性价比</td><td>强调价格优势和稳定供应</td></tr>
+<tr><td><strong>零售商</strong></td><td>量小但利润高，需求灵活</td><td>接受小批量，提供现货和快速发货</td></tr>
+<tr><td><strong>个人/SOHO</strong></td><td>量小、不专业、比价严重</td><td>快速报价后不花太多时间，除非有潜力</td></tr>
+</table>
+<p><strong>客户背调怎么做？</strong></p>
+<ul>
+<li>Google搜索客户公司名+官网</li>
+<li>LinkedIn查客户公司规模、员工数、主营产品</li>
+<li>海关数据查客户的进口记录（如果有渠道）</li>
+<li>看客户问的问题专业度——问题越专业，客户越靠谱</li>
+</ul>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《客户管理》</span>
+<span class="doc-ref">《背调客户》</span>
+</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">06</span><h4>怎么回客户 —— 回复话术与常见问题</h4><span class="topic-tag">话术</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>回复客户的黄金法则：</strong>快（1小时内回复）、准（回答客户真正问的）、全（一次给够信息，减少来回）</p>
+<p><strong>客户最常问的10个问题及回复要点：</strong></p>
+<ol>
+<li>"What is your best price?" → 不要直接给最低价。先问数量/规格/目的地，再给阶梯报价</li>
+<li>"Can you send me a sample?" → 说明样品费+运费政策，强调大货返还</li>
+<li>"What is your MOQ?" → 给MOQ但要加一句"如果试单可以适当降低"</li>
+<li>"How long is your delivery time?" → 给交期但要留buffer（实际15天说20天）</li>
+<li>"Do you have this product in stock?" → 如实回答，没有就说生产周期</li>
+<li>"Can you do custom logo/packaging?" → 展示定制案例，说明定制流程和起订量</li>
+<li>"Why are you more expensive than others?" → 解释品质差异，不要贬低同行</li>
+<li>"Can I visit your factory?" → 欢迎来访，说明地址和接待安排</li>
+<li>"What payment terms do you accept?" → 30%定金+70%发货前（T/T），或信保订单</li>
+<li>"I found another supplier cheaper" → 突出你的服务和品质优势</li>
+</ol>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《辅助回复》</span>
+<span class="doc-ref">《常见问题》</span>
+<span class="doc-ref">《买家痛点》</span>
+</p>
+<div class="highlight-box"><strong>⚠️ 记住：</strong>客户问价格不是真的要最低价——他要的是"值这个价"。你的任务是让他觉得你的产品和服务值你报的价格。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">07</span><h4>定制LOGO流程</h4><span class="topic-tag">定制</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>定制Logo是提高产品附加值和客户粘性的重要方式。</p>
+<p><strong>Logo定制标准流程：</strong></p>
+<ol>
+<li>客户提供Logo矢量文件（AI/EPS/PDF格式）或高清PNG</li>
+<li>确认Logo印制位置（产品正面/侧面/包装）和尺寸</li>
+<li>确认印制工艺（丝印/激光雕刻/热转印/刺绣等）</li>
+<li>制作打样效果图发给客户确认</li>
+<li>打实物样品 → 拍照发给客户确认 → 确认后生产大货</li>
+</ol>
+<p><strong>关键提醒：</strong>Logo定制通常有额外起订量和费用。提前和客户说明：Logo定制MOQ一般是常规MOQ的2-3倍，打样费XXX元。</p>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《设计图》</span>
+</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">08</span><h4>售后问题处理</h4><span class="topic-tag">售后</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>售后处理得好，客户会更信任你；处理不好，一个差评毁所有。</p>
+<p><strong>常见售后问题及处理方案：</strong></p>
+<ul>
+<li><strong>产品质量问题：</strong>让客户拍照/拍视频 → 确认问题 → 补货或退款（按问题严重程度）</li>
+<li><strong>发货延迟：</strong>提前告知客户 → 解释原因 → 主动给补偿（下次订单折扣/免费样品）</li>
+<li><strong>货物损坏：</strong>确认责任方 → 如果是我方责任，补发或退款 → 和货代沟通索赔</li>
+<li><strong>产品与样品不符：</strong>对比样品和大货照片 → 确认差异 → 协商解决方案</li>
+</ul>
+<p><strong>售后处理三原则：</strong>快速响应 → 承担责任（不推卸） → 给出超预期的补偿</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">09</span><h4>客户开发信与跟进体系</h4><span class="topic-tag">跟进</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>开发信结构：</strong>吸引人的标题 → 一句话介绍自己 → 你提供的价值 → 实力证明 → 清晰的下一步行动</p>
+<p><strong>跟进时间节点：</strong>第1天发信 → 第3天跟进 → 第7天提供新价值 → 第14天换个角度 → 第30天最后尝试</p>
+<div class="highlight-box"><strong>⚠️ 80%成交发生在第5-12次跟进后。</strong>大多数销售在第2次没回复就放弃了。坚持跟进就是你的竞争优势。</div>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《开发信》</span>
+<span class="doc-ref">《跟进客户》</span>
+</p>
+</div></div>
+
+</div></div>
+<!-- ====== 跟单板块 ====== -->
+<div class="module" id="order"><div class="module-header" onclick="toggleModule(this)"><div class="module-icon order">📋</div><div class="module-info"><h3>跟单板块 · 订单与单证管理</h3><div class="desc">成交只是开始，把订单顺利交付才是真本事</div></div><span class="module-arrow">▶</span></div>
+<div class="module-body">
+
+<div class="topic"><div class="topic-header open" onclick="toggleTopic(this)"><span class="topic-num">01</span><h4>都有哪些订单 —— 订单类型全览</h4><span class="topic-tag">订单</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body show">
+<p>外贸订单按来源和性质分为不同类型，不同类型的订单跟进方式不同。</p>
+<table class="info-table">
+<tr><th>订单类型</th><th>特点</th><th>关注点</th></tr>
+<tr><td><strong>样品单</strong></td><td>金额小（$50-500），客户测试产品质量</td><td>把控品质（这是客户判断你的依据）、及时发货、跟进客户收到后的反馈</td></tr>
+<tr><td><strong>试单</strong></td><td>小批量（$500-5000），客户测试市场</td><td>品质稳定、交期准时、包装完好——为翻单打基础</td></tr>
+<tr><td><strong>翻单</strong></td><td>老客户重复下单，价值最高</td><td>保持品质一致、主动优化流程、建立长期关系</td></tr>
+<tr><td><strong>大货单</strong></td><td>金额大（$10K+），涉及信用证等</td><td>合同条款严谨、质量控制严格、单证齐全</td></tr>
+</table>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《订单管理》</span>
+</p>
+<div class="tip-box"><strong>📌 核心理念：</strong>样品单和试单不是为了赚钱——是为了赚信任。品质和服务做到位，翻单自然会来。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">02</span><h4>给工厂下单 —— 采购订单流程</h4><span class="topic-tag">下单</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>收到客户订单后，你需要给工厂下采购订单（PO）。<strong>PO写得越清楚，后面麻烦越少。</strong></p>
+<p><strong>采购订单（PO）必含信息：</strong></p>
+<ol>
+<li>产品名称/型号/规格/数量/单价/总金额</li>
+<li>包装要求（单个包装+外箱要求）</li>
+<li>Logo/印刷要求（如有定制，附设计文件）</li>
+<li>交期（明确到日期，如"2026年X月X日前完成"）</li>
+<li>质量标准和验收标准</li>
+<li>付款条件（定金比例+尾款时间）</li>
+<li>送货地址（如果工厂送货到指定仓库）</li>
+</ol>
+<p><strong>下单后跟进节点：</strong></p>
+<ul>
+<li>下单后3天：确认工厂已排产</li>
+<li>生产中期：要求工厂发生产进度照片（或视频）</li>
+<li>生产完成前：安排质检（自己验或第三方验货）</li>
+<li>出货前：确认数量、包装、箱唛正确</li>
+</ul>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《采购订单》</span>
+</p>
+<div class="highlight-box"><strong>⚠️ 切记：</strong>和工厂的所有沟通——包括修改交期、调整规格、价格变动——必须留下书面记录（微信文字或邮件）。口说无凭，出了问题吃亏的是你。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">03</span><h4>给客户做单证 —— 外贸单证指南</h4><span class="topic-tag">单证</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>单证是外贸出口的"通行证"。单证错了，海关卡住不放行，客户可能拒收。</p>
+<p><strong>外贸出口核心单证清单：</strong></p>
+<table class="info-table">
+<tr><th>单证</th><th>用途</th><th>谁提供</th></tr>
+<tr><td><strong>商业发票(CI)</strong></td><td>报关、客户清关的核心单据</td><td>你制作</td></tr>
+<tr><td><strong>装箱单(PL)</strong></td><td>列明每箱的内容、重量、体积</td><td>你制作</td></tr>
+<tr><td><strong>提单(B/L)</strong></td><td>船公司出具的货权凭证</td><td>货代提供</td></tr>
+<tr><td><strong>原产地证(CO)</strong></td><td>证明产品原产国，影响关税</td><td>贸促会/海关出具</td></tr>
+<tr><td><strong>质检报告</strong></td><td>证明产品符合标准</td><td>第三方检测机构</td></tr>
+</table>
+<p><strong>单证制作的三大原则：</strong></p>
+<ul>
+<li><strong>一致性：</strong>所有单证上的信息必须一致（品名、数量、金额、日期等不能冲突）</li>
+<li><strong>准确性：</strong>核对客户的清关要求，不同国家要求不同</li>
+<li><strong>及时性：</strong>提前准备，不要等到船开了才发现单证有问题</li>
+</ul>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《单证模板》</span>
+</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">04</span><h4>跟单全流程时间线</h4><span class="topic-tag">流程</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>从收到订单到客户收货，跟单全流程一览：</p>
+<ol>
+<li><strong>收到客户订单</strong> → 确认产品规格、数量、价格、交期、付款条件</li>
+<li><strong>签合同/发PI</strong> → 形式发票发给客户确认并付款</li>
+<li><strong>收到定金</strong> → 安排给工厂下采购订单</li>
+<li><strong>跟生产进度</strong> → 排产确认 → 中期检查 → 完工确认</li>
+<li><strong>质检</strong> → 现场验货或第三方验货</li>
+<li><strong>联系货代订舱</strong> → 确认船期/航班</li>
+<li><strong>安排发货</strong> → 工厂送货到港口仓库或货代上门提货</li>
+<li><strong>报关</strong> → 提交报关资料，等待海关放行</li>
+<li><strong>装船/装机</strong> → 获得提单/空运单</li>
+<li><strong>制作单证</strong> → 发票、装箱单、产地证等发给客户</li>
+<li><strong>收尾款</strong> → 客户付尾款后放单（或按约定）</li>
+<li><strong>跟踪物流</strong> → 货物到港 → 客户清关 → 确认收货</li>
+<li><strong>要好评</strong> → 收货后3-5天跟进好评</li>
+</ol>
+</div></div>
+
+</div></div>
+<!-- ====== 管理板块 ====== -->
+<div class="module" id="mgmt"><div class="module-header" onclick="toggleModule(this)"><div class="module-icon mgmt">🤝</div><div class="module-info"><h3>管理板块 · 团队建设与战略管理</h3><div class="desc">从一个人到一个团队。打造有凝聚力、能打硬仗的大学生创业团队</div></div><span class="module-arrow">▶</span></div>
+<div class="module-body">
+
+<div class="topic"><div class="topic-header open" onclick="toggleTopic(this)"><span class="topic-num">01</span><h4>我们的团队理念</h4><span class="topic-tag">文化</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body show">
+<div class="highlight-box">
+<p>我们是大学生创业团队。我们没有大公司的资源，但有年轻人独有的优势——<strong>学习速度快、没有思维定式、敢于尝试</strong>。</p>
+<p>在YONCHEN，这里不是"打工的地方"。这里是大家一起成长、一起做出成绩的地方。每个人都是这个团队不可或缺的一部分。</p>
+<p>我们<strong>不鼓励加班</strong>。高效率工作远比长时间坐工位重要。我们看的是工作成果和成长速度，不是加班时长。</p>
+<p>我们<strong>不拿跳槽说事</strong>。如果有一天你选择离开，希望你带走的是在YONCHEN磨练的真本事。但在你在这里的每一天，我们是并肩作战的战友。</p>
+</div>
+<p><strong>YONCHEN价值观：</strong></p>
+<ul>
+<li><strong>成长第一</strong> / <strong>结果导向</strong> / <strong>透明沟通</strong> / <strong>利他共赢</strong> / <strong>持续学习</strong></li>
+</ul>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">02</span><h4>招人育人 —— 筛选简历与面试</h4><span class="topic-tag">招人</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>我们在找什么样的人？</strong></p>
+<ul>
+<li><strong>自驱力强：</strong>不需要别人推着走，自己知道要做什么</li>
+<li><strong>学习意愿高：</strong>外贸变化快，愿意不断学新东西</li>
+<li><strong>有创业心态：</strong>把工作当自己的事来做，不是"到点下班"</li>
+<li><strong>英语能读写：</strong>CET-4及以上，能写英文邮件和简单沟通</li>
+</ul>
+<p><strong>筛选简历看什么？</strong></p>
+<ul>
+<li>英语能力（CET-4/6、专四/专八、雅思/托福）</li>
+<li>是否有过实习/兼职/创业经历（比GPA更有参考价值）</li>
+<li>是否有内容创作能力（写过公众号、做过短视频、运营过社媒——加分）</li>
+<li>简历是否认真（错别字多的直接pass）</li>
+</ul>
+<p><strong>面试重点考察的三件事：</strong></p>
+<ol>
+<li><strong>为什么想来YONCHEN？</strong>（看他对我们有没有了解，是海投还是真的想来）</li>
+<li><strong>你对未来3年的规划是什么？</strong>（看目标感和长期意愿）</li>
+<li><strong>做过什么让你骄傲的事？</strong>（看自驱力和执行力，不限于工作，校园/生活都算）</li>
+</ol>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《筛选简历》</span>
+<span class="doc-ref">《提示词》</span>
+</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">03</span><h4>新人培训体系与成长路径</h4><span class="topic-tag">培训</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>三阶段培训：</strong></p>
+<ul>
+<li><strong>第1周——基础认知：</strong>了解YONCHEN做什么 → 熟悉阿里后台 → 浏览知识库 → 注册社媒账号</li>
+<li><strong>第2-4周——技能实操：</strong>产品发布/RFQ/回复询盘（运营方向）；LinkedIn搜索/开发信/跟进（销售方向）；Canva/CapCut（美工方向）。每天写工作日志</li>
+<li><strong>第2-3月——独立上手：</strong>独立完成从找客户到成交的闭环，有自己的客户池和跟进节奏</li>
+</ul>
+<p><strong>师徒制：</strong>每个新人配一位师父，负责答疑、检查工作质量、帮助快速融入。师父带好新人获额外奖励。</p>
+<p><strong>成长路径（L1-L4）：</strong></p>
+<table class="info-table">
+<tr><th>阶段</th><th>角色</th><th>时间</th><th>收入模式</th></tr>
+<tr><td>L1 新人</td><td>学习期</td><td>1-2月</td><td>基础底薪</td></tr>
+<tr><td>L2 专员</td><td>独立执行</td><td>3-6月</td><td>底薪+提成</td></tr>
+<tr><td>L3 骨干</td><td>独当一面</td><td>6-12月</td><td>底薪+提成+团队分红</td></tr>
+<tr><td>L4 合伙人</td><td>带领团队</td><td>1年+</td><td>底薪+提成+公司股权</td></tr>
+</table>
+<div class="highlight-box"><strong>🎯 创始人的承诺：</strong>在YONCHEN，收入和成长速度成正比。我不会亏待为团队创造价值的人。我们的目标——让每个YONCHEN成员在大学期间实现经济独立。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">04</span><h4>开会与任务管理</h4><span class="topic-tag">协作</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>会议节奏（高效不浪费时间）：</strong></p>
+<ul>
+<li><strong>周一早会（30分钟）：</strong>每人说本周重点目标，不超过3件事</li>
+<li><strong>周五复盘会（45分钟）：</strong>本周完成情况 → 遇到的问题 → 学到的东西 → 下周计划</li>
+<li><strong>月度分享会（1小时）：</strong>轮流分享新技能/行业动态/读书心得，一起学习</li>
+</ul>
+<p><strong>每个人今天需要做什么 —— 任务管理方法：</strong></p>
+<ul>
+<li>每天在群里发"今日三件事"（按重要性排序）</li>
+<li>下班前发"今日完成情况"（三件事完成了几件）</li>
+<li>用共享表格追踪每个人的工作进度，公开透明</li>
+</ul>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《任务管理》</span>
+<span class="doc-ref">《思维导图》</span>
+<span class="doc-ref">《PPT》</span>
+</p>
+<div class="tip-box"><strong>📌 开会原则：</strong>站着开会、直奔主题、出结论、记行动项。不开没有结论的会。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">05</span><h4>赚了多少钱 —— 财务管理</h4><span class="topic-tag">财务</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>创业团队必须清楚每一分钱的去向和来源。不需要专业会计，但必须做到<strong>账目清晰、心中有数</strong>。</p>
+<p><strong>YONCHEN财务管理的四个核心表：</strong></p>
+<ol>
+<li><strong>收入表：</strong>每笔订单的收入（客户付款金额、日期、订单号）</li>
+<li><strong>支出表：</strong>付给工厂的货款、物流费、平台年费、P4P广告费、样品费、办公费等</li>
+<li><strong>利润表：</strong>收入 - 支出 = 利润（按月/按季度汇总）</li>
+<li><strong>应收应付表：</strong>客户还有多少尾款没付？你还欠工厂多少货款？</li>
+</ol>
+<p><strong>关键财务指标：</strong></p>
+<ul>
+<li>月度净利润（是否赚钱）</li>
+<li>毛利率（销售额-产品成本）/ 销售额</li>
+<li>客户获取成本（花了多少广告费 / 来了几个新客户）</li>
+</ul>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《财务报表》</span>
+</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">06</span><h4>报关退税</h4><span class="topic-tag">财税</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>报关退税是外贸的重要利润来源。很多产品的退税率在5%-13%之间，<strong>退税就是纯利润</strong>。</p>
+<p><strong>报关退税基本流程：</strong></p>
+<ol>
+<li>货物出口时正常报关（通过报关行或货代代办）</li>
+<li>取得报关单、增值税专用发票等单证</li>
+<li>在电子税务局提交退税申请</li>
+<li>税务局审核后退税到公司账户</li>
+</ol>
+<p><strong>大学生创业团队的建议：</strong>前期可以找<strong>代理出口公司</strong>或<strong>外贸综合服务平台</strong>（如阿里一达通）代办报关退税，不需要自己处理复杂的税务流程。等业务做大后再考虑自己的进出口权和财务团队。</p>
+<div class="tip-box"><strong>💡 什么是"买单出口"？</strong>小批量出口常用方式——通过货代买单报关，不用自己的公司抬头。优点是简单方便，缺点是没有退税。样品单和小试单常用这方式，大货还是要正规报关拿退税。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">07</span><h4>档案管理</h4><span class="topic-tag">档案</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>档案库是团队的"记忆"。客户信息、订单记录、合同、单证——全部要有条理地存放。</p>
+<p><strong>档案分类体系：</strong></p>
+<ul>
+<li><strong>客户档案：</strong>每个客户一个文件夹，包含联系方式、沟通记录、订单历史</li>
+<li><strong>订单档案：</strong>按订单号分类，包含合同/PI、采购订单、单证、物流记录</li>
+<li><strong>供应商档案：</strong>每个工厂一个文件夹，包含联系方式、报价单、合作记录</li>
+<li><strong>财务档案：</strong>收入/支出记录、发票、退税单据</li>
+<li><strong>知识档案：</strong>本知识库中的所有模板和SOP</li>
+</ul>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《档案库》</span>
+</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">08</span><h4>战略 —— YONCHEN要解决什么问题</h4><span class="topic-tag">战略</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>YONCHEN的核心命题（创始人思考）：</strong></p>
+<div class="highlight-box">
+<p><strong>公司解决什么问题？</strong><br>
+帮助海外中小品牌和批发商，以合理的价格和可靠的品质，从中国采购到对的产品。我们提供的不仅是产品，更是<strong>省心、靠谱的采购体验</strong>。</p>
+<p><strong>需要什么样的资源才能解决这个问题？</strong><br>
+- 靠谱的工厂供应链（至少每个品类3家备选工厂）<br>
+- 稳定的获客渠道（阿里国际站+社媒矩阵）<br>
+- 专业的产品知识和行业认知<br>
+- 高效的单证和物流能力</p>
+<p><strong>需要什么样的能力才能解决这个问题？</strong><br>
+- 选品能力（知道什么产品好卖）<br>
+- 供应商开发和管理能力（找到好工厂、管好供应链）<br>
+- 销售和沟通能力（专业回复、高效转化）<br>
+- 内容创作能力（社媒运营、IP打造）</p>
+<p><strong>需要什么样的流程才能解决这个问题？</strong><br>
+- 拓品流程（市场调研→选品→找工厂→打样→上架→测款→放大）<br>
+- 获客流程（内容发布→社媒引流→询盘→跟进→成交）<br>
+- 交付流程（接单→下单→跟生产→质检→发货→单证→收款→好评）</p>
+</div>
+<p><strong>相关文档：</strong>
+<span class="doc-ref">《思维导图》</span>
+<span class="doc-ref">《PPT》</span>
+</p>
+</div></div>
+
+</div></div>
+
+
+<!-- ====== 物流与单证板块 ====== -->
+<div class="module" id="logistics"><div class="module-header" onclick="toggleModule(this)"><div class="module-icon logistics">🚢</div><div class="module-info"><h3>物流与单证 · 从发货到清关的全链路</h3><div class="desc">货做出来只是开始，顺利送到客户手里才是本事</div></div><span class="module-arrow">▶</span></div>
+<div class="module-body">
+
+<div class="topic"><div class="topic-header open" onclick="toggleTopic(this)"><span class="topic-num">01</span><h4>国际贸易术语 Incoterms —— 一张表看懂</h4><span class="topic-tag">核心</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body show">
+<p>Incoterms（国际贸易术语）规定了买卖双方在运输中的<strong>费用、风险和责任划分</strong>。选错术语，你可能不知不觉多付了几千块运费。</p>
+<table class="info-table">
+<tr><th>术语</th><th>中文</th><th>卖家责任</th><th>适合场景</th></tr>
+<tr><td><strong>EXW</strong></td><td>工厂交货</td><td>货备好在工厂，买家自己搞定一切物流</td><td>客户有自己货代、国内很熟</td></tr>
+<tr><td><strong>FOB</strong></td><td>船上交货</td><td>送货到起运港+报关，海运费和保险买家付</td><td>⭐ 最常用！阿里国际站默认</td></tr>
+<tr><td><strong>CIF</strong></td><td>成本+保险+运费</td><td>卖家付到目的港的海运费和保险</td><td>客户要求"包运费"的报价</td></tr>
+<tr><td><strong>DDP</strong></td><td>完税后交货</td><td>卖家负责所有费用，包括目的港清关和关税</td><td>门到门服务，客户最省心</td></tr>
+<tr><td><strong>DAP</strong></td><td>目的地交货</td><td>卖家负责送到客户指定地点，但关税买家付</td><td>客户有清关能力</td></tr>
+</table>
+<p><strong>给客户报哪种价？</strong></p>
+<ul>
+<li>阿里国际站上通常报<strong>FOB价格</strong>（最通用、最透明）</li>
+<li>如果客户问"包运费多少钱"——报CIF价格</li>
+<li>样品单通常走快递，报EXW+快递费</li>
+<li>DDP适合你已经很熟的客户和路线</li>
+</ul>
+<div class="highlight-box"><strong>⚠️ 避坑：</strong>报CIF价格时，一定要先和货代确认好目的港费用（有些港口卸货费/文件费特别高，可能高达$200-500）。别报了CIF才发现目的港还有隐藏费用，客户找你麻烦。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">02</span><h4>海运全流程 —— 从订舱到客户收货</h4><span class="topic-tag">海运</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>海运标准操作流程（10步）：</strong></p>
+<ol>
+<li><strong>报价阶段：</strong>给客户报FOB/CIF价时，先和货代确认海运费预估</li>
+<li><strong>接单后：</strong>确认货物体积/重量/件数 → 联系货代订舱</li>
+<li><strong>货代发SO（Shipping Order入舱单）：</strong>拿到SO后确认船名、航次、截关时间、预计开船时间</li>
+<li><strong>安排拖车：</strong>让货代安排拖车去工厂装货（或自己找拖车），注意截关时间</li>
+<li><strong>报关：</strong>在截关时间前提交报关资料给报关行</li>
+<li><strong>海关放行：</strong>放行后货物装船，等待开船</li>
+<li><strong>开船后：</strong>货代提供<strong>提单（Bill of Lading, B/L）</strong>草稿让你确认</li>
+<li><strong>确认提单：</strong>核对品名、数量、收货人信息、目的港等——错一个字可能客户清不了关</li>
+<li><strong>获得正本提单或电放：</strong>正本提单寄给客户（慢但安全），或电放（Telex Release，快但需客户信任）</li>
+<li><strong>客户清关提货：</strong>客户在目的港清关、交税、提货</li>
+</ol>
+<p><strong>什么是"截关时间"？</strong>这是海运最重要的时间节点——过了截关时间还没报关放行，你的货就上不了这条船，要等下一班。延误一周起步。</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">03</span><h4>集装箱知识 —— 能装多少货？</h4><span class="topic-tag">集装箱</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<table class="info-table">
+<tr><th>柜型</th><th>内尺寸（约）</th><th>容积</th><th>载重</th><th>适合</th></tr>
+<tr><td><strong>20GP</strong></td><td>5.9×2.35×2.39m</td><td>约28CBM</td><td>约25吨</td><td>小批量货、重货</td></tr>
+<tr><td><strong>40GP</strong></td><td>12.03×2.35×2.39m</td><td>约58CBM</td><td>约26吨</td><td>中等批量</td></tr>
+<tr><td><strong>40HQ</strong></td><td>12.03×2.35×2.69m</td><td>约68CBM</td><td>约26吨</td><td>⭐最常用、最划算</td></tr>
+</table>
+<p><strong>怎么判断走整柜还是拼箱？</strong></p>
+<ul>
+<li>货量 < 15CBM → 走<strong>拼箱（LCL）</strong>，按体积收费</li>
+<li>货量 15-25CBM → 比较拼箱和20GP整柜费用，算哪个划算</li>
+<li>货量 > 25CBM → 走<strong>整柜（FCL）</strong>，20GP或40GP</li>
+<li>货量 > 55CBM → 走40HQ</li>
+</ul>
+<div class="tip-box"><strong>💡 估算技巧：</strong>告诉工厂每个外箱的尺寸(cm)和数量，自己算总体积 = 长×宽×高÷1,000,000×箱数=CBM。如果不会算，让工厂把数据发给货代帮忙算。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">04</span><h4>国际快递对比 —— 样品和小包裹怎么寄</h4><span class="topic-tag">快递</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<table class="info-table">
+<tr><th>快递</th><th>时效</th><th>价格</th><th>适合区域</th><th>特点</th></tr>
+<tr><td><strong>DHL</strong></td><td>3-5天</td><td>偏高</td><td>欧洲、东南亚、中东</td><td>快且服务好，最推荐</td></tr>
+<tr><td><strong>UPS</strong></td><td>3-5天</td><td>偏高</td><td>美国、北美</td><td>美国线路最强</td></tr>
+<tr><td><strong>FedEx</strong></td><td>3-5天</td><td>中高</td><td>全球</td><td>平衡型</td></tr>
+<tr><td><strong>TNT</strong></td><td>4-6天</td><td>中等</td><td>欧洲</td><td>现已被FedEx收购</td></tr>
+<tr><td><strong>EMS</strong></td><td>7-15天</td><td>较低</td><td>全球</td><td>速度慢但便宜，小国家覆盖好</td></tr>
+</table>
+<p><strong>寄样品的省钱技巧：</strong></p>
+<ul>
+<li>找货代拿<strong>代理价</strong>（比官网价格便宜30%-50%）</li>
+<li>体积大的产品，快递按"体积重量"收费——体积重量(kg) = 长×宽×高(cm)÷5000。如果你的包装盒太大，换小盒子能省一半运费</li>
+<li>小包裹（<2kg）考虑"国际小包"或邮政渠道，比快递便宜很多但速度慢</li>
+</ul>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">05</span><h4>空运入门</h4><span class="topic-tag">空运</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>空运介于快递和海运之间：<strong>比快递便宜、比海运快</strong>。适合中等货量（50-500kg）且客户要得急的订单。</p>
+<p><strong>空运vs海运vs快递决策表：</strong></p>
+<table class="info-table">
+<tr><th>条件</th><th>推荐方式</th></tr>
+<tr><td>货重<50kg，急</td><td>国际快递</td></tr>
+<tr><td>货重50-300kg，时效要求高</td><td>空运</td></tr>
+<tr><td>货重>300kg，不急</td><td>海运</td></tr>
+<tr><td>体积>1CBM</td><td>海运（空运会很贵）</td></tr>
+<tr><td>样品或文件</td><td>快递</td></tr>
+</table>
+<p><strong>空运计价方式：</strong>空运按<strong>计费重量</strong>收费 = 取"实际重量"和"体积重量(长×宽×高cm÷6000)"中较大的那个。</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">06</span><h4>报关全流程</h4><span class="topic-tag">报关</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p>报关是把货物<strong>合法出口</strong>的必要手续。通常通过<strong>报关行</strong>或货代代办。</p>
+<p><strong>报关需要准备的资料（提前准备好，不要临时凑）：</strong></p>
+<ol>
+<li><strong>商业发票（Commercial Invoice）：</strong>品名、数量、单价、总金额</li>
+<li><strong>装箱单（Packing List）：</strong>每箱的尺寸、重量、内容物</li>
+<li><strong>合同（Sales Contract/PI）：</strong>与客户的销售合同</li>
+<li><strong>申报要素：</strong>产品的中文品名、材质、用途、HS编码、品牌等（报关行会发模板给你填）</li>
+<li><strong>其他可能需要的：</strong>商检、出口许可证（特殊产品如食品、化妆品、电子产品等）</li>
+</ol>
+<p><strong>HS编码（海关编码）是什么？</strong>每个产品都有一个10位数字的HS编码，决定<strong>出口退税率和是否需要商检</strong>。不知道你的产品HS编码？在1688或阿里国际站搜同类产品，看同行用的什么编码；或问工厂、报关行。</p>
+<div class="highlight-box"><strong>⚠️ 常见报关问题：</strong>品名和HS编码对不上 → 海关查验 → 扣货延误。品名要如实申报，不要为了多退税乱改HS编码——被查到更严重。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">07</span><h4>外贸单证大全 —— 每一张纸干什么用</h4><span class="topic-tag">单证</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<table class="info-table">
+<tr><th>单证</th><th>全称</th><th>谁出具</th><th>用途</th></tr>
+<tr><td><strong>CI</strong></td><td>商业发票 Commercial Invoice</td><td>你</td><td>报关+清关，核心单据。品名/数量/金额必须与其他单证一致</td></tr>
+<tr><td><strong>PL</strong></td><td>装箱单 Packing List</td><td>你</td><td>列明每箱内容、毛重、净重、体积</td></tr>
+<tr><td><strong>B/L</strong></td><td>提单 Bill of Lading</td><td>船公司/货代</td><td>货权凭证。凭正本提单提货。是海运最重要的单据</td></tr>
+<tr><td><strong>AWB</strong></td><td>空运单 Air Waybill</td><td>航空公司/货代</td><td>空运的运输凭证（非货权凭证）</td></tr>
+<tr><td><strong>CO</strong></td><td>原产地证 Certificate of Origin</td><td>贸促会/海关</td><td>证明产品原产国，影响客户关税</td></tr>
+<tr><td><strong>FORM A</strong></td><td>普惠制原产地证</td><td>海关</td><td>出口到给惠国（如欧盟/日本）可享关税优惠</td></tr>
+<tr><td><strong>FORM F</strong></td><td>中国-智利FTA证书</td><td>海关</td><td>出口智利用，享自贸协定关税</td></tr>
+<tr><td><strong>FORM E</strong></td><td>中国-东盟FTA证书</td><td>海关</td><td>出口东南亚用，享自贸协定关税</td></tr>
+</table>
+<p><strong>客户要FORM A/E/F是什么？</strong>这是<strong>自贸协定优惠原产地证</strong>——有这个证，客户清关时可以减免关税。比如出口到东盟国家，有FORM E可能关税从10%降到0%。这对客户是实实在在的成本节省，<strong>你能帮客户搞定原产地证，是很大的加分项</strong>。</p>
+<div class="tip-box"><strong>📌 实操建议：</strong>客户下单时主动问一句"需要原产地证吗？需要哪种？"——这个细节会让客户觉得你专业。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">08</span><h4>物流成本计算 —— 怎么给客户报价</h4><span class="topic-tag">成本</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>一票FOB出口的总费用包括：</strong></p>
+<ul>
+<li>工厂货款</li>
+<li>拖车费（工厂→港口，约¥800-2000/柜）</li>
+<li>报关费（约¥300-500/票）</li>
+<li>文件费/操作费（约¥200-400/票）</li>
+<li>可能的其他费用：商检费、熏蒸费（木箱包装）、仓储费（如果货在港口放久了）</li>
+</ul>
+<p><strong>给客户报运费的方法：</strong></p>
+<ol>
+<li>拿到货代的最新海运费报价（海运费每周波动，报价前务必确认最新价格）</li>
+<li>海运费 + 目的港费用（THC/文件费/清关费） = 总海运成本</li>
+<li>给客户报CIF价 = FOB价 + 海运费 + 保险费（保险=货值×0.1%-0.3%）</li>
+<li>给客户留buffer：实际运费加5%-10%报给客户，防止运费突然上涨</li>
+</ol>
+<div class="highlight-box"><strong>⚠️ 重要：</strong>海运费不是固定的——旺季翻倍很正常。给客户报价时注明"运费以实际出货时为准"或加上有效期（如"运费报价有效期7天"）。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">09</span><h4>常见物流问题与避坑</h4><span class="topic-tag">避坑</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>问题1：货被海关查验了怎么办？</strong></p>
+<ul>
+<li>不要慌——查验是正常流程，概率约3%-10%</li>
+<li>配合报关行提供资料（产品图片、用途说明、材质说明等）</li>
+<li>只要品名和HS编码如实申报，通常3-7天放行</li>
+</ul>
+<p><strong>问题2：船期延误了客户催怎么办？</strong></p>
+<ul>
+<li>提前告知（不要等客户来问才说）</li>
+<li>解释原因（天气/港口拥堵/船公司调整——客观原因客户能理解）</li>
+<li>给出新的预计到达时间</li>
+<li>主动提供补偿（如下次订单免运费或给折扣）</li>
+</ul>
+<p><strong>问题3：货物损坏了谁赔？</strong></p>
+<ul>
+<li>如果是运输损坏 → 找货代/船公司索赔（但赔偿金额有限，通常按重量赔）</li>
+<li><strong>建议：</strong>高货值产品务必买运输保险（费用很低，货值的0.1%-0.3%）</li>
+<li>木箱包装比纸箱安全得多，易碎品必须打木箱</li>
+</ul>
+<p><strong>问题4：货物到了目的港客户不付尾款不提货怎么办？</strong></p>
+<ul>
+<li>这是最头疼的情况。FOB/CIF下，货物到港后如果客户不提，会产生高额滞港费</li>
+<li><strong>预防：</strong>大货单务必收50%以上定金；CIF单最好收到全款再放提单；使用信保订单</li>
+<li><strong>发生后：</strong>尽快联系客户协商；同时联系货代确认是否可以在目的港转卖或退运（退运成本很高，通常不划算）</li>
+</ul>
+</div></div>
+
+</div></div>
+<!-- ====== 客户文化板块 ====== -->
+<div class="module" id="culture"><div class="module-header" onclick="toggleModule(this)"><div class="module-icon culture">🌍</div><div class="module-info"><h3>客户文化 · 各国客户交流指南</h3><div class="desc">懂产品不如懂客户。了解各国文化差异，让沟通少踩坑、多成交</div></div><span class="module-arrow">▶</span></div>
+<div class="module-body">
+
+<div class="topic"><div class="topic-header open" onclick="toggleTopic(this)"><span class="topic-num">01</span><h4>美国 —— 直接、高效、法律意识强</h4><span class="topic-tag">北美</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body show">
+<p><strong>沟通风格：</strong>美国人说话直接，行就是行，不行就是不行。不要绕弯子，不要打太极。邮件简洁扼要，开头直奔主题。</p>
+<p><strong>谈判习惯：</strong></p>
+<ul>
+<li>美国人喜欢"一口价"，不喜欢讨价还价好几个来回</li>
+<li>他们重视数据和事实——说"我们的质量很好"不如说"我们的产品通过了XX认证，不良率<0.5%"</li>
+<li>价格不是唯一因素——交期、品质、服务同样看重</li>
+<li>决策快——如果对你的报价和样品满意，美国客户下单速度比其他地区客户快得多</li>
+</ul>
+<p><strong>禁忌与注意：</strong></p>
+<ul>
+<li>不要过度承诺然后做不到——美国人非常看重信誉，一次失信可能永久失去合作</li>
+<li>回复要及时——24小时内必须回复，最好当天回</li>
+<li>知识产权意识极强——不要炫耀"我们也能做XX大牌同款"（这是你的减分项）</li>
+<li>商务场合叫名字（first name）即可，不用Mr./Ms.地叫。但邮件第一封可以用Dear Mr. [Last Name]，熟了之后直接Hi [First Name]</li>
+</ul>
+<p><strong>时区：</strong>美国本土4个时区（东部EST UTC-5，中部CST UTC-6，山地MST UTC-7，西部PST UTC-8）。北京时间比美东时间快12-13小时（夏令时/冬令时不同）。<strong>联系时间：北京时间晚上9点-凌晨1点</strong>对应美国工作时间。</p>
+<p><strong>重要节日：</strong>7月4日独立日（国庆）、11月第四个周四感恩节（会放假一周）、12月25日圣诞节。这些时间前后客户回复慢是正常的。</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">02</span><h4>英国 & 欧洲客户总览</h4><span class="topic-tag">欧洲</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>英国：</strong>礼貌、保守、注重细节。英国人不会像美国人那么直接——"Interesting"可能意味着"我不太赞同"。邮件用词正式，多用Dear/Regards/Kind regards等礼貌用语。英国客户非常看重产品质量和合规（CE/UKCA认证）。时区GMT/BST，北京时间-7/8小时。</p>
+<p><strong>德国：</strong>严谨到极致。德国客户是<strong>最看重品质和细节</strong>的客户群。</p>
+<ul>
+<li>报价必须精确（不要说"about $5"，要说"$5.20 FOB Shanghai"）</li>
+<li>交期必须准时（德国人规划性强，延误会严重影响信任）</li>
+<li>产品参数表/技术文档要详细完整</li>
+<li>沟通风格直接但不粗鲁，邮件偏好结构化（有标题、分段、编号）</li>
+<li>德国人尊重专业——如果你对他的产品领域表现出深度专业，会获得巨大加分</li>
+</ul>
+<p><strong>法国：</strong></p>
+<ul>
+<li>商务沟通正式、礼貌。称呼用Monsieur/Madame，邮件结尾用Cordialement/Sincères salutations</li>
+<li>如果客户用法语发邮件，尽量用法语回复（或中英法对照）</li>
+<li>8月是法国假期月——整个月客户可能都不在，别在8月催单</li>
+<li>法国客户在意设计和美感，产品外观和包装的质感很重要</li>
+</ul>
+<p><strong>意大利/西班牙：</strong></p>
+<ul>
+<li>南欧客户关系导向——先建立私人关系再谈生意，会比较有效</li>
+<li>沟通热情、语速快、可能会打断你（不是不礼貌）</li>
+<li>交期概念相对灵活（相比德国），但不要觉得可以利用这一点</li>
+<li>8月也是南欧主要假期月</li>
+<li>意大利客户对设计、时尚、品牌感敏感，如果你的产品外观出色，他们会很喜欢</li>
+</ul>
+<p><strong>荷兰：</strong>英语极好、直接到近乎直白（比美国人还直接）。荷兰人不喜欢绕弯——"太贵了"就是"太贵了"，不用说好听话。荷兰客户决策理性、效率高。</p>
+<p><strong>时区：</strong>欧洲中部CET UTC+1（德国/法国/意大利/西班牙/荷兰），英国GMT/BST UTC+0/1。<strong>联系时间：北京时间下午3-6点</strong>对应欧洲上午，<strong>晚上8-11点</strong>对应欧洲下午。</p>
+<div class="tip-box"><strong>📌 欧洲通用提示：</strong>欧盟产品合规要求严格——CE认证、RoHS、REACH等。如果你能主动告知产品已通过这些认证，欧洲客户对你的信任度会立刻提升一个档次。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">03</span><h4>中东 —— 重视关系、擅长谈判</h4><span class="topic-tag">中东</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>覆盖国家：</strong>阿联酋（迪拜）、沙特阿拉伯、卡塔尔、科威特、阿曼等</p>
+<p><strong>沟通风格：</strong></p>
+<ul>
+<li>中东客户非常<strong>重视人际关系</strong>——做生意前先建立信任。不要一上来就报价，先问候，聊聊近况、家人（但不要问对方的妻子/女儿，除非他先提到）</li>
+<li>谈判是中东商业文化的一部分——<strong>他们一定会讨价还价</strong>，甚至享受这个过程。报价时要留砍价空间</li>
+<li>决策可能比较慢——需要和多个决策者商量，不要催促</li>
+<li>口头承诺不一定是最终决定——拿到书面确认才算</li>
+</ul>
+<p><strong>禁忌与注意：</strong></p>
+<ul>
+<li><strong>不要问客户妻子或女儿的情况</strong>（中东文化中的隐私禁忌），可以问候"你和你的家人"</li>
+<li>不要用左手传递文件或名片（左手在中东文化中被认为不洁）</li>
+<li>不要在斋月期间白天联系客户——他们白天禁食，精力有限</li>
+<li>避免在交流中使用猪、酒等与伊斯兰文化冲突的话题和图片</li>
+<li>周五是伊斯兰国家的休息日（相当于中国的周日），不要在周五催回复</li>
+</ul>
+<p><strong>付款特点：</strong>中东客户比较看重付款方式——T/T、L/C（信用证）比较常见。信誉好的客户走T/T没问题，新客户建议收较高比例的定金。</p>
+<p><strong>时区：</strong>GST UTC+4（阿联酋），<strong>联系时间：北京时间下午1-5点</strong>对应中东上午工作时间。</p>
+<div class="tip-box"><strong>🔑 获客渠道：</strong>迪拜是中东的贸易中心。很多中东客户通过参加广交会和B2B平台（阿里国际站）找供应商。LinkedIn在中东也非常活跃。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">04</span><h4>东南亚 —— 价格敏感、关系导向</h4><span class="topic-tag">东南亚</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>覆盖国家：</strong>泰国、印尼、越南、菲律宾、马来西亚、新加坡</p>
+<p><strong>沟通与谈判：</strong></p>
+<ul>
+<li>东南亚客户<strong>价格敏感度最高</strong>——价格通常是第一决策因素</li>
+<li>喜欢"给面子"的沟通方式，不要太直接地否定对方</li>
+<li>关系很重要——有机会见面喝咖啡吃饭比纯邮件沟通效果好得多</li>
+<li>决策速度中等——不急不慢，不要催太紧</li>
+<li>越南、印尼、泰国的英语水平参差不齐——表达要简单清晰，避免长难句</li>
+<li>新加坡客户沟通风格接近西方——英语流利、直接高效</li>
+</ul>
+<p><strong>各国的"小特点"：</strong></p>
+<ul>
+<li><strong>泰国：</strong>微笑之国，沟通温和。泰国客户不喜欢被催促，保持礼貌和耐心。</li>
+<li><strong>印尼：</strong>穆斯林为主，注意宗教禁忌。尊重他们的祷告时间。</li>
+<li><strong>越南：</strong>新兴制造业国家，很多越南客户本身就是工厂——他们可能是在找上游供应商。</li>
+<li><strong>马来西亚：</strong>多元文化，华裔客户中文沟通无障碍，马来裔客户和印尼类似。</li>
+<li><strong>菲律宾：</strong>英语好，沟通方便。价格敏感。</li>
+</ul>
+<p><strong>时区：</strong>UTC+7（泰国/越南/印尼），UTC+8（马来西亚/菲律宾/新加坡，与北京同时区）。<strong>联系时间：北京工作时间即可。</strong></p>
+<div class="highlight-box"><strong>⚠️ 注意：</strong>东南亚客户虽然价格敏感，但很多是长期稳定客户——一旦认可你了，翻单率高。不要因为第一次利润薄就放弃，把眼光放在长期合作上。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">05</span><h4>拉丁美洲 —— 热情、慢节奏、关系第一</h4><span class="topic-tag">拉美</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>覆盖国家：</strong>墨西哥、巴西、哥伦比亚、智利、秘鲁、阿根廷等</p>
+<p><strong>沟通风格：</strong></p>
+<ul>
+<li>拉美客户非常热情友好——邮件开头一定要有问候："Hope you are doing well / I hope everything is great with you"</li>
+<li><strong>关系大于交易</strong>——在不熟之前，很难拿到大单。多花时间建立个人关系：聊聊足球、问问对方国家的情况</li>
+<li>节奏慢——回复可能比较慢，决策周期长。不要频繁催单，保持耐心</li>
+<li>巴西人说葡萄牙语（不是西班牙语！），其他拉美国家说西班牙语。如果用他们的母语发邮件（哪怕只是Google翻译的几句问候），好感度立刻上升</li>
+</ul>
+<p><strong>谈判与商务：</strong></p>
+<ul>
+<li>拉美客户也会讨价还价，但不像中东那么激烈</li>
+<li>付款周期可能较长——部分国家外汇管制严格，付款流程复杂</li>
+<li>巴西进口清关手续特别复杂——如果你能帮客户搞定巴西清关需要的文件，是巨大的竞争壁垒</li>
+<li>智利是拉美最稳定的市场之一，中智自贸协定下很多产品免关税——主动提FORM F</li>
+</ul>
+<p><strong>时区：</strong>墨西哥UTC-6，巴西UTC-3（巴西利亚），阿根廷/智利UTC-3。<strong>联系时间：北京时间晚上8点-凌晨2点</strong>（对应拉美上午到下午）。</p>
+<p><strong>禁忌：</strong></p>
+<ul>
+<li>不要用西班牙语跟巴西人说——他们是唯一说葡萄牙语的拉美国家，用西班牙语会被认为不尊重</li>
+<li>不要上来就谈生意——拉美人会觉得你太功利。先拉近关系</li>
+</ul>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">06</span><h4>非洲 —— 信任是关键、付款要谨慎</h4><span class="topic-tag">非洲</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>主要市场：</strong>尼日利亚、南非、肯尼亚、埃及、加纳、埃塞俄比亚</p>
+<p><strong>沟通风格：</strong></p>
+<ul>
+<li>非洲客户非常看重<strong>信任</strong>——建立信任后，忠诚度极高，会成为长期稳定客户</li>
+<li>沟通风格直接、热情。不要用居高临下的态度沟通——平等尊重是基础</li>
+<li>英语在尼日利亚、肯尼亚、南非广泛使用；北非（埃及、摩洛哥）主要说法语或阿拉伯语</li>
+<li>有些客户可能会频繁比价、压价——保持耐心和专业</li>
+</ul>
+<p><strong>⚠️ 付款风险 —— 这是非洲客户最需要注意的问题：</strong></p>
+<ul>
+<li><strong>坚持T/T 50%-100%预付</strong>——对不了解的新客户，宁可丢单也不要冒收款风险</li>
+<li>尼日利亚有大量诈骗——收到来自尼日利亚的询盘，先做背景调查（查公司注册信息、网站是否正规、是否有LinkedIn档案）</li>
+<li>南非相对规范——在南非有注册公司的客户相对靠谱</li>
+<li>信用证（L/C）在非洲市场使用较多，但手续复杂、费用高——新手不建议轻易走L/C</li>
+</ul>
+<p><strong>时区：</strong>尼日利亚UTC+1，南非UTC+2，肯尼亚UTC+3。<strong>联系时间：北京时间下午3-6点</strong>对应非洲上午。</p>
+<div class="highlight-box"><strong>⚠️ 警惕诈骗信号：</strong>客户不关心产品细节只谈付款、要求用奇怪的付款方式、邮箱是免费邮箱（gmail/yahoo）没有任何公司后缀、公司地址在网上查不到——这些都要提高警惕。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">07</span><h4>日韩 —— 礼仪严谨、追求品质</h4><span class="topic-tag">东亚</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>日本：</strong></p>
+<ul>
+<li><strong>最看重品质</strong>——日本客户对产品质量的要求极高，细节控到极致。做好心理准备，他们可能会挑出你从没注意过的小问题</li>
+<li>沟通礼貌、正式、间接——"这个有点困难"可能意思是"不行"</li>
+<li>决策慢但一旦决定就非常稳定——日本客户是<strong>最忠诚</strong>的客户群体之一，合作后不会轻易换供应商</li>
+<li>准时——交期绝对不能说"差不多"，说哪天就是哪天</li>
+<li>商务礼仪：交换名片用双手、开会不要迟到、服装正式</li>
+<li>邮件用Dear [姓]-san开头，结尾用Best regards</li>
+</ul>
+<p><strong>韩国：</strong></p>
+<ul>
+<li>韩国客户节奏快——回复要及时，拖延会给对方不好的印象</li>
+<li>等级意识强——尽量和对方同等级的人沟通（老板对老板、经理对经理）</li>
+<li>韩国客户对价格的敏感度高于日本客户</li>
+<li>喝酒社交在韩国商务中很常见——但你们是线上团队，这条了解即可</li>
+<li>邮件正式，使用韩式英文敬语</li>
+</ul>
+<p><strong>时区：</strong>日韩UTC+9，比北京快1小时。<strong>联系时间：北京时间早上8点-下午5点</strong>基本同步。</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">08</span><h4>大洋洲 —— 轻松、专业、信任为先</h4><span class="topic-tag">大洋洲</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>覆盖国家：</strong>澳大利亚、新西兰</p>
+<p><strong>沟通风格：</strong></p>
+<ul>
+<li>澳大利亚客户轻松、友好、不太拘泥于形式。邮件可以用相对轻松的语气</li>
+<li>但他们<strong>不失专业</strong>——轻松不等于随便，对产品质量和交期仍然认真</li>
+<li>直接但礼貌——"No worries"是口头禅（不是真的不担心，是"没问题"的意思）</li>
+<li>决策速度中等，不会太快也不会太慢</li>
+</ul>
+<p><strong>商务要点：</strong></p>
+<ul>
+<li>澳大利亚和新西兰的市场不大但稳定——客户质量通常不错</li>
+<li>他们重视工作生活平衡——不要在非工作时间频繁联系他们</li>
+<li>合规要求与欧美类似——产品需要符合当地标准</li>
+<li>澳大利亚客户喜欢和专业的供应商合作，展示你的专业知识会获得尊重</li>
+</ul>
+<p><strong>时区：</strong>澳大利亚东部AEST UTC+10（悉尼/墨尔本），比北京快2-3小时。<strong>联系时间：北京时间早上6-8点</strong>对应澳洲上午9-11点（澳洲上班早，4-5点下班也早）。</p>
+<div class="tip-box"><strong>💡 注意：</strong>澳大利亚夏季（12月-2月）很多公司放长假，客户回复会非常慢。圣诞+新年期间不要期待回复。</div>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">09</span><h4>南亚 —— 印度、巴基斯坦、孟加拉</h4><span class="topic-tag">南亚</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>沟通风格：</strong></p>
+<ul>
+<li>印度客户<strong>极度价格敏感</strong>——做好被反复压价的准备</li>
+<li>谈判是常态——印度客户会把价格压到你觉得不可能接受的程度，然后慢慢往回谈</li>
+<li>英语流利（印度是英语国家），沟通无障碍。但口音可能需要适应</li>
+<li>回复可能比较慢，有时答应的事情不一定会兑现——跟进要勤但不至于催</li>
+<li>巴基斯坦和孟加拉客户与印度类似，但巴基斯坦客户对中国的态度更加友好</li>
+</ul>
+<p><strong>成交要点：</strong></p>
+<ul>
+<li>报价留足空间（他们一定会砍价）</li>
+<li>强调价格优势，品质够用就行（他们对品质的要求低于日韩欧美）</li>
+<li>收款要谨慎——建议至少50%定金，小额订单100%预付</li>
+</ul>
+<p><strong>时区：</strong>UTC+5:30（印度），比北京慢2.5小时。<strong>联系时间：北京时间上午11点-下午6点</strong>。</p>
+</div></div>
+
+<div class="topic"><div class="topic-header" onclick="toggleTopic(this)"><span class="topic-num">10</span><h4>通用跨文化沟通技巧</h4><span class="topic-tag">总结</span><span class="topic-arrow">▶</span></div>
+<div class="topic-body">
+<p><strong>跨语言沟通要点：</strong></p>
+<ul>
+<li>英语不要用太复杂的句式和生僻词——大部分客户的母语不是英语</li>
+<li>重要信息用短句、分点、编号。外国人看邮件是扫描式的，大段文字容易被忽略</li>
+<li>数字和单位要明确：用公制（kg/cm/m），美国客户可能需要换算成英制（lbs/inch/ft）</li>
+<li>日期格式不要歧义——用"15 Jun 2026"或"June 15, 2026"，不要用"06/15/2026"（欧美理解不同）</li>
+</ul>
+<p><strong>WhatsApp沟通礼仪：</strong></p>
+<ul>
+<li>WhatsApp是外贸沟通的"第二工具"——很多客户邮件不回但WhatsApp秒回</li>
+<li>第一次WhatsApp联系先自我介绍、说清楚你是从哪拿到他联系方式的</li>
+<li>不要在工作时间外频繁发消息（除非确认对方OK）</li>
+<li>不要发语音（客户可能不方便听，发文字便于对方翻译和记录）</li>
+</ul>
+<p><strong>视频会议注意事项：</strong></p>
+<ul>
+<li>提前确认时区，不要让对方凌晨开会</li>
+<li>准备一个简单的PPT（3-5页），展示工厂、产品、团队、客户案例</li>
+<li>语速放慢，每讲完一段停顿，给对方消化和提问的时间</li>
+<li>会议结束后发邮件总结要点：今天讨论了什么、下一步各自要做什么、什么时候跟进</li>
+</ul>
+<p><strong>节日祝福技巧：</strong></p>
+<ul>
+<li>圣诞节：12月20日前给所有欧美客户发祝福</li>
+<li>斋月：对穆斯林客户说"Ramadan Kareem"（斋月吉祥）</li>
+<li>开斋节：斋月结束后说"Eid Mubarak"（节日快乐）</li>
+<li>中国春节：提前告知客户放假时间，安排好出货节奏</li>
+</ul>
+<div class="highlight-box"><strong>🎯 一句总结：</strong>和美国人谈数据、和德国人谈品质、和中东人谈关系、和拉美人谈友谊、和日本人谈细节、和印度人谈价格。先了解你的客户是谁，再决定怎么和他沟通。</div>
+</div></div>
+
+</div></div><div class="footer">YONCHEN · 大学生创业外贸团队 · 从这里开始，一起成长</div>
+</main><script>
+function toggleModule(header) {
+  header.classList.toggle('open');
+  header.nextElementSibling.classList.toggle('show');
+}
+function toggleTopic(header) {
+  header.classList.toggle('open');
+  header.nextElementSibling.classList.toggle('show');
+}
+function toggleNavSection(title) {
+  title.classList.toggle('open');
+  title.nextElementSibling.classList.toggle('show');
+}
+function scrollToModule(id) {
+  var el = document.getElementById(id);
+  if (el) { el.scrollIntoView({behavior:'smooth',block:'start'}); }
+  document.querySelectorAll('.nav-item').forEach(function(n){ n.classList.remove('active'); });
+  var items = document.querySelectorAll('.nav-item');
+  for (var i = 0; i < items.length; i++) {
+    var attr = items[i].getAttribute('onclick');
+    if (attr && attr.indexOf(id) > -1) {
+      items[i].classList.add('active');
+    }
+  }
+  document.querySelector('.sidebar').classList.remove('mobile-open');
+}
+function searchContent() {
+  var q = document.getElementById('searchInput').value.toLowerCase().trim();
+  document.querySelectorAll('mark').forEach(function(m){
+    var p = m.parentNode;
+    p.replaceChild(document.createTextNode(m.textContent), p);
+    p.normalize();
+  });
+  if (!q) {
+    document.querySelectorAll('.module,.topic').forEach(function(el){ el.classList.remove('hidden-by-search'); });
+    document.querySelectorAll('.module-body,.topic-body').forEach(function(b){ b.classList.remove('show'); });
+    return;
+  }
+  document.querySelectorAll('.module').forEach(function(m){ m.classList.add('hidden-by-search'); });
+  document.querySelectorAll('.topic').forEach(function(t){ t.classList.add('hidden-by-search'); });
+  var matchedModules = new Set();
+  var matchedTopics = new Set();
+  document.querySelectorAll('.topic').forEach(function(topic){
+    if (topic.textContent.toLowerCase().indexOf(q) > -1) {
+      matchedTopics.add(topic);
+      matchedModules.add(topic.closest('.module'));
+      var mb = topic.closest('.module').querySelector('.module-body');
+      if (mb) mb.classList.add('show');
+      var mh = topic.closest('.module').querySelector('.module-header');
+      if (mh) mh.classList.add('open');
+    }
+  });
+  document.querySelectorAll('.module-header').forEach(function(mh){
+    if (mh.textContent.toLowerCase().indexOf(q) > -1) {
+      matchedModules.add(mh.closest('.module'));
+    }
+  });
+  matchedModules.forEach(function(m){ m.classList.remove('hidden-by-search'); });
+  matchedTopics.forEach(function(t){
+    t.classList.remove('hidden-by-search');
+    t.querySelector('.topic-header').classList.add('open');
+    t.querySelector('.topic-body').classList.add('show');
+  });
+}
+document.addEventListener('DOMContentLoaded', function(){
+  var firstNav = document.querySelector('.nav-section-title');
+  if (firstNav) toggleNavSection(firstNav);
+});
+document.querySelector('.main').addEventListener('click', function(){
+  document.querySelector('.sidebar').classList.remove('mobile-open');
+});
+</script>
+</body>
+</html>
